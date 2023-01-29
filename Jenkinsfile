@@ -44,6 +44,7 @@ pipeline {
         stage('Integration and Perfromance test') {
           steps {
             sh './mvnw verify'
+            node(label: 'test')
           }
         }
 
