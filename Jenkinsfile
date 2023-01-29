@@ -45,7 +45,7 @@ pipeline {
           steps {
             sh './mvnw -e -X verify'
             node(label: 'test')
-            junit '**/target/surefire-reports/'
+            junit '**/target/surefire-reports/TEST-*.xml'
           }
         }
 
