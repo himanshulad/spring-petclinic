@@ -9,6 +9,7 @@ pipeline {
     stage('Compile') {
       steps {
         sh './mvnw clean compile'
+        node(label: 'test')
       }
     }
 
