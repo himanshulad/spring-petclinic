@@ -43,7 +43,7 @@ pipeline {
 
         stage('Integration and Perfromance test') {
           steps {
-            sh './mvnw verify'
+            sh './mvnw -e -X verify'
             node(label: 'test')
           }
         }
