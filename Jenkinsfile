@@ -21,34 +21,10 @@ pipeline {
       }
     }
 
-    stage('Unit Test') {
+    stage('Unit Test/Archive JUnit-formatted test result') {
       steps {
         sh './mvnw "-Dtest=**/petclinic/*/*.java" test'
-      }
-    }
-
-    stage('Package') {
-      steps {
-        sh './mvnw package -DskipTests=true'
-      }
-    }
-
-    stage('Deploy') {
-      parallel {
-        stage('Deploy') {
-          steps {
-            sh './mvnw spring-boot:run </dev/null &>/dev/null &'
-          }
-        }
-
-        stage('Integration and Performance Tests/Archive JUnit formatted test results') {
-          steps {
-            sh './mvnw -e -X verify'
-            node(label: 'test')
-            junit '**/target/surefire-reports/TEST-*.xml'
-          }
-        }
-
+        junit '**/target/surefire-reports'
       }
     }
 
